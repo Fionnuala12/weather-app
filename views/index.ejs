@@ -21,9 +21,11 @@
                 </div>
         <div class="col-6">
         <input type="submit" value="Search" class="btn btn-primary">
-        <button class="btn btn-secondary" id="current-location-button"> Current Location </button>
+        <button class="btn btn-secondary" id="current-location-button" onclick="getLocation()"> Current Location </button>
         </div>
     </div>
+
+
     </form>
       <h1 id="city">
           Paris 
@@ -46,7 +48,7 @@
                     <div class="container grid">
                         <div class="row row-cols-2">
                             <div class="col box">
-                        <span id="humidity">97</span>%<div><i class="fas fa-tint"></i> Humidity</div>
+                        <span id="humidity"></span>%<div><i class="fas fa-tint"></i> Humidity</div>
                     </div>
                     <div class="col box">
                         <span id="wind">1</span> kmh <div><i class="fas fa-wind"></i> Wind</div>
@@ -73,29 +75,7 @@
     </small>
     </div>
 
-
-    <script>
-        function getLocation() {
-            if(navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-
-                    fetch(`/geolocation?latitude=${latitude}&longitude=${longitude}`, {
-                        method: 'GET'
-                    })
-                    .then(response => response.json()) // Convert raw response to JSON
-                    .then(data => console.log("Weather:", data)) // Work with the parsed data
-                    .catch(error => console.log("Error:", error)); // Handle errors
-                }); 
-            } else {
-                console.log("Geolocation not supported");
-            }
-        }
-
-        getLocation();
-
-    </script>
+    <script src="JS/geolocation.js"> </script>
 </body>
 </html>
 

@@ -28,17 +28,11 @@ app.get("/geolocation", async (req, res) => {
         const response = await axios.get(weatherURL);
         console.log("Weather data:", response.data); 
 
-        const weatherData = response.data;
-
-        res.status(200).json({
-            message: "Weather datat recieved", 
-            weather: weatherData
-        });
+        res.render("index.ejs", { weatherData: response.data });
 
     } catch(error) {
         console.error("Error fetching weather data:", error); 
         res.status(500).json({ error: "Failed to fetch weather data"});
-
     }
 });
 
