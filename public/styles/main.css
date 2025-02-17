@@ -1,0 +1,96 @@
+h1{
+    font-size: 38px;
+}
+
+h2{
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+p {
+   text-align: center;
+}
+
+.weather-app-wrapper{
+    margin: 30px auto;
+    max-width: 55%;  
+    line-height: 1.5;  
+    display: block;
+}
+
+.weather-app{
+    border: 0.5px solid #2E2C4C;;
+    border-radius: 20px;
+    background-image: url(https://img.freepik.com/free-photo/photo-bright-shiny-blue-sky-with-fluffy-dense-whi_76080-4498.jpg?size=626&ext=jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 15px;
+    margin: 10px;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #2E2C4C; 
+    box-shadow: 7px 5px 5px -2px rgba(0,0,0,0.23)
+}
+
+.today-weather-img{
+    float: left;
+    position: relative;
+    height: 120px;
+    width: 120px; 
+    }
+
+.today-weather-temp{
+    font-size: 64px;
+    
+}
+
+#search-form{
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.box {
+    padding: 10px;
+    
+}
+
+.active {
+    color: black;
+    cursor: default;
+    text-decoration: none;
+}
+
+.active:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.inactive {
+    text-decoration: none;
+}
+
+.weather-forecast{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.weather-forecast img {
+    margin: 0 auto;
+    display: block;
+    width: 40px;
+}
+
+.weather-forecast h3 {
+    font-size: medium;
+}
+
+#description {
+    margin-top: -10px;
+    font-weight: 800;
+    margin-right: 20px;
+}
+
+#units{
+    position: relative;
+    top: -35px;
+    font-size: 16px;
+}
