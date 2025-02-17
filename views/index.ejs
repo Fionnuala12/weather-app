@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+<body>
+<h1> Hello! </h1>
+
+    <script>
+        function getLocation() {
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    fetch(`/geolocation?latitude=${latitude}&longitude=${longitude}`, {
+                        method: 'GET'
+                    })
+                    .then(response => response.json()) // Convert raw response to JSON
+                    .then(data => console.log("Weather:", data)) // Work with the parsed data
+                    .catch(error => console.log("Error:", error)); // Handle errors
+                }); 
+            } else {
+                console.log("Geolocation not supported");
+            }
+        }
+
+        getLocation();
+
+    </script>
+</body>
+</html>
+
+
