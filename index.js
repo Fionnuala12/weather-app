@@ -18,7 +18,6 @@ app.get("/", (req, res) => {
 app.post("/city", async (req, res) => {
 
     let cityName = req.body.cityName; 
-
     try {
         const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`);
         console.log(result.data);
@@ -48,8 +47,6 @@ app.post("/city", async (req, res) => {
         console.error("Error fetching weather data:", error); 
         res.render("index.ejs", { weatherData: null });
     }
-
-
 })
 
 /* app.get("/geolocation", async (req, res) => {
