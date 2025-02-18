@@ -17,15 +17,36 @@ app.get("/", (req, res) => {
 
 app.post("/city", async (req, res) => {
 
-    const cityName = req.body.cityName; 
+    let cityName = req.body.cityName; 
 
     try {
-        const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}`);
-        console.log(result);
-        res.render("index.ejs", { weatherData: JSON.stringify(result.data)});
+        const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`);
+        console.log(result.data);
+
+        const weatherInfo = result.data; 
+
+        const sunriseUnix = weatherInfo.sys.sunrise;
+        const sunsetUnix = weatherInfo.sys.sunset;
+        const timezoneOffset = weatherInfo.timezone;
+
+        // Convert Unix timestamp to milliseconds and adjust for timezone
+        function convertUnixToTime(unixTime) {
+            let date = new Date((unixTime + timezoneOffset) * 1000); 
+            let hours = date.getUTCHours(); 
+            let minuets = date.getUTCMinutes();
+            return `${hours < 10 ? "0" + hours : hours}:${minuets < 10 ? "0" + minuets : minuets}`;
+        }
+
+        weatherInfo.sunrise = convertUnixToTime(sunriseUnix);
+        weatherInfo.sunset = convertUnixToTime(sunsetUnix);
+        console.log("Sunrise time:", weatherInfo.sunrise);
+
+
+        res.render("index.ejs", { weatherData: weatherInfo });
+
     } catch(error) {
         console.error("Error fetching weather data:", error); 
-        res.render("index.ejs", {weatherData: null});
+        res.render("index.ejs", { weatherData: null });
     }
 
 

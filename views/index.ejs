@@ -17,42 +17,45 @@
             <input type="text" placeholder="Enter city..." class="search-bar" id="city-name" name="cityName">
             <button type="submit" value="search" class="search-button"> Search </button>             
         </form>
-            
-
+        
+        
+        <% let data = weatherData || {}; %>
+        <% if (weatherData) { %>
+        
         <div class="location-and-date">
-          <h1 class="location-and-date__location">London, UK</h1>
+          <h1 class="location-and-date__location"> <%= data.name %> </h1>
           <div>Sunday 4th August</div>
         </div>
       
       
         <div class="current-temperature">
           <div class="current-temperature__icon-container">
-            <img src="icons/mostly-sunny.svg" class="current-temperature__icon" alt="">
+            <img src="" class="current-temperature__icon" alt="">
           </div>
           <div class="current-temperature__content-container">
-            <div class="current-temperature__value">21&deg;</div>
-            <div class="current-temperature__summary">Mostly Sunny</div>
+            <div class="current-temperature__value"><%= Math.round(data.main.temp) %>&deg;</div>
+            <div class="current-temperature__summary"> <%= data.weather[0].description %></div>
           </div>
         </div>
       
       
         <div class="current-stats">
           <div>
-            <div class="current-stats__value">23&deg;</div>
+            <div class="current-stats__value"><%= Math.round(data.main.temp_max) %>&deg;</div>
             <div class="current-stats__label">High</div>
-            <div class="current-stats__value">14&deg;</div>
+            <div class="current-stats__value"><%= Math.round(data.main.temp_min) %>&deg;</div>
             <div class="current-stats__label">Low</div>
           </div>
           <div>
-            <div class="current-stats__value">7mph</div>
+            <div class="current-stats__value"><%= Math.round(data.wind.speed) %>mph</div>
             <div class="current-stats__label">Wind</div>
-            <div class="current-stats__value">0%</div>
-            <div class="current-stats__label">Rain</div>
+            <div class="current-stats__value"><%= data.main.humidity %>%</div>
+            <div class="current-stats__label">Humidity</div>
           </div>
           <div>
-            <div class="current-stats__value">05:27</div>
+            <div class="current-stats__value"><%= data.sunrise %></div>
             <div class="current-stats__label">Sunrise</div>
-            <div class="current-stats__value">20:57</div>
+            <div class="current-stats__value"> <%= data.sunset %></div>
             <div class="current-stats__label">Sunset</div>
           </div>
         </div>
@@ -97,7 +100,9 @@
             </div>
           </div>
         </div>
-        
+    
+    <% } %>
+ 
       </main>
       
       </body>
