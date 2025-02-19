@@ -72,7 +72,6 @@
   }
   
   
-  
   /* current-temperature */
   .current-temperature {
     display: flex;
@@ -177,24 +176,30 @@
   }
   
   .weather-by-hour__item {
-    padding: 0.8em 0;
+    padding: 1em 0;
     width: 13%;
     border-radius: 5px;
     background-color: rgba(0,0,0,0.15);
-    font-size: 1.125em;
+    font-size: 0.8em;
     text-align: center;
   }
   
   @media screen and (min-width: 880px) {
     .weather-by-hour__item {
       width: 6.05em;
+      font-size: 1.125em;
     }
   }
   
   .weather-by-hour__hour {
     margin-bottom: 0.5em;
   }
+
+
+  .weather-by-hour_img {
+    width: 90%;
+  }
   
-  
+ 
   
   

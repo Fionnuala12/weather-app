@@ -11,7 +11,7 @@ app.use(express.static('public'));
 
 
 app.get("/", (req, res) => {
-    res.render("index.ejs", {weatherData: null});
+    res.render("index.ejs", {weatherData: null, forecastData: null});
 }); 
 
 
@@ -23,32 +23,28 @@ app.post("/city", async (req, res) => {
         // Fetch current weather
         const currentWeatherResponse = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`);
         console.log(currentWeatherResponse.data);
-
         const weatherInfo = currentWeatherResponse.data; 
-        const timezoneOffset = weatherInfo.timezone;
-
+        
         // Get todays date 
         const fullDate = new Date(); 
 
-        //Day of the week 
         const dayIndex = fullDate.getDay();
         const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]; 
         const dayName = dayNames[dayIndex]; 
 
-        // Get the date
         const date = fullDate.getDate();
 
-        //Get the Month 
         const monthIndex = fullDate.getMonth(); 
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const monthName = monthNames[monthIndex];
 
         const formattedDate = dayName + " " + date + " " + monthName;
-
         weatherInfo.currentDate = formattedDate;
 
 
         // Convert Unix timestamp to milliseconds and adjust for timezone
+        const timezoneOffset = weatherInfo.timezone;
+
         function convertUnixToTime(unixTime) {
             let date = new Date((unixTime + timezoneOffset) * 1000); 
             let hours = date.getUTCHours(); 
@@ -74,6 +70,9 @@ app.post("/city", async (req, res) => {
         });
         console.log(forecast);
 
+
+        console.log("Weather Info:", weatherInfo);
+        console.log("Forecast Data:", forecast);
         res.render("index.ejs", { weatherData: weatherInfo, forecastData: forecast });
 
     } catch(error) {

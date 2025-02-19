@@ -18,46 +18,44 @@
             <button type="submit" value="search" class="search-button"> Search </button>             
         </form>
         
-        
-        <% let data = weatherData || {}; %>
-        <% let forecast = forecastData || {}; %>
-        <% if (data && forecast) { %>
+    
+        <% if (locals.weatherData && locals.forecastData) { %>
         
         <div class="location-and-date">
-          <h1 class="location-and-date__location"> <%= data.name %> </h1>
-          <div> <%= data.currentDate %></div>
+          <h1 class="location-and-date__location"> <%= weatherData.name %> </h1>
+          <div> <%= weatherData.currentDate %></div>
         </div>
       
       
         <div class="current-temperature">
           <div class="current-temperature__icon-container">
-            <img src="http://openweathermap.org/img/wn/<%= data.weather[0].icon %>@2x.png" class="current-temperature__icon" 
-            alt="<%= data.weather[0].description %>">
+            <img src="http://openweathermap.org/img/wn/<%= weatherData.weather[0].icon %>@2x.png" class="current-temperature__icon" 
+            alt="<%= weatherData.weather[0].description %>">
           </div>
           <div class="current-temperature__content-container">
-            <div class="current-temperature__value"><%= Math.round(data.main.temp) %>&deg;</div>
-            <div class="current-temperature__summary"> <%= data.weather[0].description %></div>
+            <div class="current-temperature__value"><%= Math.round(weatherData.main.temp) %>&deg;</div>
+            <div class="current-temperature__summary"> <%= weatherData.weather[0].description %></div>
           </div>
         </div>
       
       
         <div class="current-stats">
           <div>
-            <div class="current-stats__value"><%= Math.round(data.main.temp_max) %>&deg;</div>
+            <div class="current-stats__value"><%= Math.round(weatherData.main.temp_max) %>&deg;</div>
             <div class="current-stats__label">High</div>
-            <div class="current-stats__value"><%= Math.round(data.main.temp_min) %>&deg;</div>
+            <div class="current-stats__value"><%= Math.round(weatherData.main.temp_min) %>&deg;</div>
             <div class="current-stats__label">Low</div>
           </div>
           <div>
-            <div class="current-stats__value"><%= Math.round(data.wind.speed) %>mph</div>
+            <div class="current-stats__value"><%= Math.round(weatherData.wind.speed) %>mph</div>
             <div class="current-stats__label">Wind</div>
-            <div class="current-stats__value"><%= data.main.humidity %>%</div>
+            <div class="current-stats__value"><%= weatherData.main.humidity %>%</div>
             <div class="current-stats__label">Humidity</div>
           </div>
           <div>
-            <div class="current-stats__value"><%= data.sunrise %></div>
+            <div class="current-stats__value"><%= weatherData.sunrise %></div>
             <div class="current-stats__label">Sunrise</div>
-            <div class="current-stats__value"> <%= data.sunset %></div>
+            <div class="current-stats__value"> <%= weatherData.sunset %></div>
             <div class="current-stats__label">Sunset</div>
           </div>
         </div>
@@ -67,44 +65,46 @@
           <h2 class="weather-by-hour__heading">Today's weather</h2>
           <div class="weather-by-hour__container">
             <div class="weather-by-hour__item">
-              <div class="weather-by-hour__hour"><%= forecast[0].time %></div>
-              <img src="http://openweathermap.org/img/wn/<%= forecast[0].weather[0].icon %>@2x.png" alt="<%= forecast[0].weather[0].description %>">
-              <div><%= Math.round(forecast[0].main.temp) %>&deg;</div>
+              <div class="weather-by-hour__hour"><%= forecastData[0].time %></div>
+              <img src="http://openweathermap.org/img/wn/<%= forecastData[0].weather[0].icon %>@2x.png" alt="<%= forecastData[0].weather[0].description %>" class="weather-by-hour_img">
+              <div><%= Math.round(forecastData[0].main.temp) %>&deg;</div>
             </div>
             <div class="weather-by-hour__item">
-              <div class="weather-by-hour__hour"><%= forecast[1].time %></div>
-              <img src="http://openweathermap.org/img/wn/<%= forecast[1].weather[0].icon %>@2x.png" alt="<%= forecast[1].weather[0].description %>">
-              <div><%= Math.round(forecast[1].main.temp) %>&deg;</div>
+              <div class="weather-by-hour__hour"><%= forecastData[1].time %></div>
+              <img src="http://openweathermap.org/img/wn/<%= forecastData[1].weather[0].icon %>@2x.png" alt="<%= forecastData[1].weather[0].description %>" class="weather-by-hour_img">
+              <div><%= Math.round(forecastData[1].main.temp) %>&deg;</div>
             </div>
             <div class="weather-by-hour__item">
-              <div class="weather-by-hour__hour"><%= forecast[2].time %></div>
-              <img src="http://openweathermap.org/img/wn/<%= forecast[2].weather[0].icon %>@2x.png" alt="<%= forecast[2].weather[0].description %>">
-              <div><%= Math.round(forecast[2].main.temp) %>&deg;</div>
+              <div class="weather-by-hour__hour"><%= forecastData[2].time %></div>
+              <img src="http://openweathermap.org/img/wn/<%= forecastData[2].weather[0].icon %>@2x.png" alt="<%= forecastData[2].weather[0].description %>" class="weather-by-hour_img">
+              <div><%= Math.round(forecastData[2].main.temp) %>&deg;</div>
             </div>
             <div class="weather-by-hour__item">
-              <div class="weather-by-hour__hour"><%= forecast[3].time %></div>
-              <img src="http://openweathermap.org/img/wn/<%= forecast[3].weather[0].icon %>@2x.png" alt="<%= forecast[3].weather[0].description %>">
-              <div><%= Math.round(forecast[3].main.temp) %>&deg;</div>
+              <div class="weather-by-hour__hour"><%= forecastData[3].time %></div>
+              <img src="http://openweathermap.org/img/wn/<%= forecastData[3].weather[0].icon %>@2x.png" alt="<%= forecastData[3].weather[0].description %>" class="weather-by-hour_img">
+              <div><%= Math.round(forecastData[3].main.temp) %>&deg;</div>
             </div>
             <div class="weather-by-hour__item">
-              <div class="weather-by-hour__hour"><%= forecast[4].time %></div>
-              <img src="http://openweathermap.org/img/wn/<%= forecast[4].weather[0].icon %>@2x.png" alt="<%= forecast[4].weather[0].description %>">
-              <div><%= Math.round(forecast[4].main.temp) %>&deg;</div>
+              <div class="weather-by-hour__hour"><%= forecastData[4].time %></div>
+              <img src="http://openweathermap.org/img/wn/<%= forecastData[4].weather[0].icon %>@2x.png" alt="<%= forecastData[4].weather[0].description %>" class="weather-by-hour_img">
+              <div><%= Math.round(forecastData[4].main.temp) %>&deg;</div>
             </div>
             <div class="weather-by-hour__item">
-              <div class="weather-by-hour__hour"><%= forecast[5].time %></div>
-              <img src="http://openweathermap.org/img/wn/<%= forecast[5].weather[0].icon %>@2x.png" alt="<%= forecast[5].weather[0].description %>">
-              <div><%= Math.round(forecast[5].main.temp) %>&deg;</div>
+              <div class="weather-by-hour__hour"><%= forecastData[5].time %></div>
+              <img src="http://openweathermap.org/img/wn/<%= forecastData[5].weather[0].icon %>@2x.png" alt="<%= forecastData[5].weather[0].description %>" class="weather-by-hour_img">
+              <div><%= Math.round(forecastData[5].main.temp) %>&deg;</div>
             </div>
             <div class="weather-by-hour__item">
-              <div class="weather-by-hour__hour"><%= forecast[6].time %></div>
-              <img src="http://openweathermap.org/img/wn/<%= forecast[6].weather[0].icon %>@2x.png" alt="<%= forecast[6].weather[0].description %>">
-              <div><%= Math.round(forecast[6].main.temp) %>&deg;</div>
+              <div class="weather-by-hour__hour"><%= forecastData[6].time %></div>
+              <img src="http://openweathermap.org/img/wn/<%= forecastData[6].weather[0].icon %>@2x.png" alt="<%= forecastData[6].weather[0].description %>" class="weather-by-hour_img">
+              <div><%= Math.round(forecastData[6].main.temp) %>&deg;</div>
             </div>
           </div>
         </div>
 
-    <%  } %>
+    <%  } else {  %>
+      <%= error %>
+    <% } %>
      
       </main>
       
