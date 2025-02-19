@@ -11,22 +11,42 @@ app.use(express.static('public'));
 
 
 app.get("/", (req, res) => {
-    res.render("index.ejs")
-});
+    res.render("index.ejs", {weatherData: null});
+}); 
 
 
 app.post("/city", async (req, res) => {
 
     let cityName = req.body.cityName; 
     try {
-        const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`);
-        console.log(result.data);
 
-        const weatherInfo = result.data; 
+        // Fetch current weather
+        const currentWeatherResponse = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`);
+        console.log(currentWeatherResponse.data);
 
-        const sunriseUnix = weatherInfo.sys.sunrise;
-        const sunsetUnix = weatherInfo.sys.sunset;
+        const weatherInfo = currentWeatherResponse.data; 
         const timezoneOffset = weatherInfo.timezone;
+
+        // Get todays date 
+        const fullDate = new Date(); 
+
+        //Day of the week 
+        const dayIndex = fullDate.getDay();
+        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]; 
+        const dayName = dayNames[dayIndex]; 
+
+        // Get the date
+        const date = fullDate.getDate();
+
+        //Get the Month 
+        const monthIndex = fullDate.getMonth(); 
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const monthName = monthNames[monthIndex];
+
+        const formattedDate = dayName + " " + date + " " + monthName;
+
+        weatherInfo.currentDate = formattedDate;
+
 
         // Convert Unix timestamp to milliseconds and adjust for timezone
         function convertUnixToTime(unixTime) {
@@ -36,12 +56,25 @@ app.post("/city", async (req, res) => {
             return `${hours < 10 ? "0" + hours : hours}:${minuets < 10 ? "0" + minuets : minuets}`;
         }
 
-        weatherInfo.sunrise = convertUnixToTime(sunriseUnix);
-        weatherInfo.sunset = convertUnixToTime(sunsetUnix);
+        weatherInfo.sunrise = convertUnixToTime(weatherInfo.sys.sunrise);
+        weatherInfo.sunset = convertUnixToTime(weatherInfo.sys.sunset);
         console.log("Sunrise time:", weatherInfo.sunrise);
 
+        // Forecast three hour intervals
+        const forecastResponse = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}&units=metric`);
+        const forecastData = forecastResponse.data;
+        
+        const forecast = [];
+        for( let i = 0; i < 7; i++) {
+            forecast.push(forecastData.list[i]);
+        } 
+        
+        forecast.forEach((entry) => {
+            entry.time = convertUnixToTime(entry.dt);
+        });
+        console.log(forecast);
 
-        res.render("index.ejs", { weatherData: weatherInfo });
+        res.render("index.ejs", { weatherData: weatherInfo, forecastData: forecast });
 
     } catch(error) {
         console.error("Error fetching weather data:", error); 
