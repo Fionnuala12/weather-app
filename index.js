@@ -10,14 +10,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
-app.get("/", (req, res) => {
-    res.render("index.ejs", {weatherData: null, forecastData: null});
-}); 
 
 
-app.post("/city", async (req, res) => {
 
-    let cityName = req.body.cityName; 
+async function fetchWeatherData(cityName) {
+
     try {
 
         // Fetch current weather
@@ -71,15 +68,29 @@ app.post("/city", async (req, res) => {
         console.log(forecast);
 
 
-        console.log("Weather Info:", weatherInfo);
-        console.log("Forecast Data:", forecast);
-        res.render("index.ejs", { weatherData: weatherInfo, forecastData: forecast });
+        //console.log("Weather Info:", weatherInfo);
+        //console.log("Forecast Data:", forecast);
+        //res.render("index.ejs", { weatherData: weatherInfo, forecastData: forecast });
+
+        return {weatherData: weatherInfo, forecastData: forecast};
 
     } catch(error) {
         console.error("Error fetching weather data:", error); 
-        res.render("index.ejs", { weatherData: null });
+        res.render("index.ejs", { weatherData: null, forecast: null });
     }
-})
+}
+
+app.get("/", async (req, res) => {
+    const data = await fetchWeatherData("London");
+    res.render("index.ejs", data);
+}); 
+
+app.post("/city", async (req, res) => {
+    const cityName = req.body.cityName; 
+    const data = await fetchWeatherData(cityName);
+    res.render("index.ejs",  data);
+});
+
 
 /* app.get("/geolocation", async (req, res) => {
     try {
