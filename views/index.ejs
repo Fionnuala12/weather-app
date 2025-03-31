@@ -15,9 +15,9 @@
     
         <form id="search-form" action="/city" method="post">
             <input type="text" placeholder="Enter city..." class="search-bar" id="city-name" name="cityName">
-            <button type="submit" value="search" class="search-button"> Search </button>             
-        </form>
-        
+            <button type="submit" value="search" class="search-button"> Search </button>  
+                    
+        </form>        
     
         <% if (locals.weatherData && locals.forecastData) { %>
         
@@ -107,6 +107,8 @@
     <% } %>
      
       </main>
+
+      <script src="/public/script.js"></script>
       
       </body>
       </html>
@@ -124,7 +126,6 @@
 
 
 
-</body>
-</html>
+
 
 

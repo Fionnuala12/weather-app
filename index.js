@@ -91,32 +91,6 @@ app.post("/city", async (req, res) => {
     res.render("index.ejs",  data);
 });
 
-
-/* app.get("/geolocation", async (req, res) => {
-    try {
-        const { latitude, longitude } = req.query; 
-        console.log("query params:", req.query);
-
-        if( !latitude || !longitude ) {
-            return res.status(400).json({error: "Latitude and longitude are required"});
-        }
-
-        
-        const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
-        console.log("Fetching weather from:", weatherURL);
-
-        const response = await axios.get(weatherURL);
-        console.log("Weather data:", response.data); 
-
-        res.render("index.ejs", {weatherData: JSON.stringify(response.data)});
-
-    } catch(error) {
-        console.error("Error fetching weather data:", error); 
-        res.render("index.ejs", {weatherData: null});
-    }
-}); */
-
-
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });
